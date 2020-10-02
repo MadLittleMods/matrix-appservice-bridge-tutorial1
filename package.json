@@ -1,0 +1,21 @@
+{
+  "name": "matrix-appservice-bridge-tutorial1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gitter-realtime-client": "^2.2.0",
+    "matrix-appservice-bridge": "^2.1.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.10.0",
+    "prettier": "^2.1.2"
+  }
+}
