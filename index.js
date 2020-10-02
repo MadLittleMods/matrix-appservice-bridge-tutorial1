@@ -59,8 +59,12 @@ client
         const username = model && model.fromUser && model.fromUser.username;
         const text = model && model.text;
 
-        const intent = bridge.getIntent(`@gitter_${username}:my.matrix.host`);
-        intent.sendText(env.matrixRoomId, text);
+        // Stop the message bridge recursion loop
+        // Do not pass on messages that come from the bridging bot already
+        if (username !== env.gitterBridingUsername) {
+          const intent = bridge.getIntent(`@gitter_${username}:my.matrix.host`);
+          intent.sendText(env.matrixRoomId, text);
+        }
       }
     }
   })
