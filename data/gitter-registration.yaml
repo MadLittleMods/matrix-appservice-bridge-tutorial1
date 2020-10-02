@@ -1,13 +1,13 @@
-id: 72fb0172a592af931f0a9303cc6f913c4da288c7236de0f2bd78d8c82c513ddf
-hs_token: 4e0fde553892a1a26a172153d4c6a15520920d5594e6428b1647ca3406126791
-as_token: c197462f42411be1822585e459ac2429bf6094f774472bd4985947cb4cd2727a
+id: c0b8ce1183366c7540fe530c7086070286b5062cc04f8c9f10e0b28c8b39304d
+hs_token: 2bf01e7a60fdd746023457cab98ef7ebbe74c1b1d7f4a2f8662c70933a8eaad8
+as_token: 49f49761fdaaa35ad06600713ece41d1d90de01e7e6c405434db2b12b673e842
 namespaces:
   users:
     - exclusive: true
       regex: '@gitter_.*'
   aliases: []
   rooms: []
-url: 'http://localhost:9000'
+url: 'http://host.docker.internal:9000'
 sender_localpart: gitter-badger
 rate_limited: true
 protocols: null

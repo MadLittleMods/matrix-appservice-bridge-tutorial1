@@ -72,8 +72,9 @@ client
   });
 
 new Cli({
-  registrationPath: 'gitter-registration.yaml',
+  registrationPath: 'data/gitter-registration.yaml',
   generateRegistration: function (reg, callback) {
+    reg.setAppServiceUrl('http://host.docker.internal:9000');
     reg.setId(AppServiceRegistration.generateToken());
     reg.setHomeserverToken(AppServiceRegistration.generateToken());
     reg.setAppServiceToken(AppServiceRegistration.generateToken());
@@ -84,8 +85,8 @@ new Cli({
   run: function (port, config) {
     bridge = new Bridge({
       homeserverUrl: 'http://localhost:18008',
-      domain: 'localhost',
-      registration: 'gitter-registration.yaml',
+      domain: 'my.matrix.host',
+      registration: 'data/gitter-registration.yaml',
       controller: {
         onUserQuery: function (queriedUser) {
           return {}; // auto-provision users with no additonal data
@@ -110,6 +111,9 @@ new Cli({
               method: 'POST',
               json: true,
               uri: `http://localhost:5000/api/v1/rooms/${env.gitterRoomId}/chatMessages`,
+              headers: {
+                Authorization: `Bearer ${env.gitterToken}`,
+              },
               body: {
                 text: `\`${event.user_id}\`: ${event.content.body}`,
               },
