@@ -8,6 +8,7 @@
 // Then run the bridge (Application service)
 // node index.js -p 9000
 
+const requestLib = require('request');
 const Halley = require('halley');
 const Cli = require('matrix-appservice-bridge').Cli;
 const Bridge = require('matrix-appservice-bridge').Bridge; // we will use this later
@@ -52,17 +53,19 @@ client
   .subscribe(endpoint, function (message) {
     console.log('message', message);
 
-    if (bridge) {
-      const model = message && message.model;
-      const username = model && model.fromUser && model.fromUser.username;
-      const text = model && model.text;
+    if (message && message.operation === 'create') {
+      if (bridge) {
+        const model = message && message.model;
+        const username = model && model.fromUser && model.fromUser.username;
+        const text = model && model.text;
 
-      const intent = bridge.getIntent(`@gitter_${username}:my.matrix.host`);
-      intent.sendText(env.matrixRoomId, text);
+        const intent = bridge.getIntent(`@gitter_${username}:my.matrix.host`);
+        intent.sendText(env.matrixRoomId, text);
+      }
     }
   })
   .then(() => {
-    console.log('subscription has been acknowledged');
+    console.log('Gitter halley subscription has been acknowledged');
   })
   .catch((err) => {
     console.log('err', err);
@@ -88,8 +91,37 @@ new Cli({
           return {}; // auto-provision users with no additonal data
         },
 
+        // TODO: This part is non-working
+        // We never receive any events from Matrix
         onEvent: function (request, context) {
-          return; // we will handle incoming matrix requests later
+          const event = request.getData();
+          console.log('event', event);
+
+          if (
+            event.type !== 'm.room.message' ||
+            !event.content ||
+            event.room_id !== env.matrixRoomId
+          ) {
+            return;
+          }
+
+          requestLib(
+            {
+              method: 'POST',
+              json: true,
+              uri: `http://localhost:5000/api/v1/rooms/${env.gitterRoomId}/chatMessages`,
+              body: {
+                text: `\`${event.user_id}\`: ${event.content.body}`,
+              },
+            },
+            function (err, res) {
+              if (err) {
+                console.log('HTTP Error: %s', err);
+              } else {
+                console.log('HTTP %s', res.statusCode);
+              }
+            }
+          );
         },
       },
     });
