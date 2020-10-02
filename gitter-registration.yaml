@@ -1,0 +1,13 @@
+id: 72fb0172a592af931f0a9303cc6f913c4da288c7236de0f2bd78d8c82c513ddf
+hs_token: 4e0fde553892a1a26a172153d4c6a15520920d5594e6428b1647ca3406126791
+as_token: c197462f42411be1822585e459ac2429bf6094f774472bd4985947cb4cd2727a
+namespaces:
+  users:
+    - exclusive: true
+      regex: '@gitter_.*'
+  aliases: []
+  rooms: []
+url: 'http://localhost:9000'
+sender_localpart: gitter-badger
+rate_limited: true
+protocols: null

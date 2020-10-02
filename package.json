@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "gitter-realtime-client": "^2.2.0",
+    "halley": "^0.7.0",
     "matrix-appservice-bridge": "^2.1.0",
     "request": "^2.88.2"
   },
