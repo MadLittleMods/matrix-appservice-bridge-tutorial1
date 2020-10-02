@@ -17,6 +17,7 @@ const env = require('./env.json');
 
 const endpoint = `/api/v1/rooms/${env.gitterRoomId}/chatMessages`;
 
+let bridge;
 const client = new Halley.Client(env.fayeUrl);
 
 client.addExtension({
@@ -52,10 +53,12 @@ client
     console.log('message', message);
 
     if (bridge) {
-      const username = message && message.fromUser && message.fromUser.username;
+      const model = message && message.model;
+      const username = model && model.fromUser && model.fromUser.username;
+      const text = model && model.text;
 
       const intent = bridge.getIntent(`@gitter_${username}:localhost`);
-      intent.sendText(env.matrixRoomId, params.text);
+      intent.sendText(env.matrixRoomId, text);
     }
   })
   .then(() => {

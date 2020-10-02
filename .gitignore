@@ -1,2 +1,10 @@
 node_modules/
 env.json
+
+room-store.db
+user-store.db
+
+data/media_store
+data/homeserver.db
+data/my.matrix.host.log.config
+data/my.matrix.host.signing.key

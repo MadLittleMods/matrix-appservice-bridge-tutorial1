@@ -6,8 +6,8 @@ services:
     image: 'matrixdotorg/synapse:v1.20.1'
     restart: 'unless-stopped'
     ports:
-      - '127.0.0.1:18008:8008'
-      - '127.0.0.1:18448:8448'
+      - '18008:8008'
+      - '18448:8448'
     volumes:
       - './data/:/data/'
 
@@ -16,6 +16,6 @@ services:
     image: 'vectorim/riot-web:v1.7.8'
     restart: 'unless-stopped'
     ports:
-      - '127.0.0.1:18010:80'
+      - '18010:80'
     volumes:
-      - './config.json/:/app/config.json'
+      - './riot-config.json:/app/config.json'
