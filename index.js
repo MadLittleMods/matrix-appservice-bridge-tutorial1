@@ -57,7 +57,7 @@ client
       const username = model && model.fromUser && model.fromUser.username;
       const text = model && model.text;
 
-      const intent = bridge.getIntent(`@gitter_${username}:localhost`);
+      const intent = bridge.getIntent(`@gitter_${username}:my.matrix.host`);
       intent.sendText(env.matrixRoomId, text);
     }
   })
@@ -80,7 +80,7 @@ new Cli({
   },
   run: function (port, config) {
     bridge = new Bridge({
-      homeserverUrl: 'http://localhost:8008',
+      homeserverUrl: 'http://localhost:18008',
       domain: 'localhost',
       registration: 'gitter-registration.yaml',
       controller: {

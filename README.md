@@ -22,6 +22,12 @@ docker run -it --rm
     matrixdotorg/synapse:latest generate
 ```
 
+Create the registration file:
+
+```
+node index.js -r -u "http://localhost:9000"
+```
+
 Copy the latest `gitter-registration.yaml` to `data/`
 
 Edit `data/homeserver.yaml` to add the registration
@@ -44,3 +50,15 @@ $ docker exec -it synapse /bin/bash
 ```
 
 Visit http://localhost:18010/ and sign in with your new user
+
+Create a new public room:
+
+- Settings -> Security & Privacy -> Who can access this room? -> **Anyone who knows the room's link, including guests**
+- Settings -> Roles & Permissions -> Invite users -> **Default**
+- Settings -> Advanced -> Copy the **Internal room ID** into the `env.json` here in the AS project
+
+Run our Application Service (AS)
+
+```
+node index.js -p 9000
+```
