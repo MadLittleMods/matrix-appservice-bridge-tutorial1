@@ -96,8 +96,6 @@ new Cli({
           return {}; // auto-provision users with no additonal data
         },
 
-        // TODO: This part is non-working
-        // We never receive any events from Matrix
         onEvent: function (request, context) {
           const event = request.getData();
           console.log('event', event);
